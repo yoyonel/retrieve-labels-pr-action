@@ -6,16 +6,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Self test
-        id: selftest_with_default_input_argument
-        uses: yoyonel/retrieve-labels-pr-action@master
-      - name: Check outputs
-        run: |
-          test "${{ steps.selftest_with_default_input_argument.outputs.myOutput }}" == "Hello world"
-      - name: Self test
-        id: selftest_with_arg
+        id: selftest
         uses: yoyonel/retrieve-labels-pr-action@master
         with:
-          myInput: test
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          pr_number: 123456
       - name: Check outputs
         run: |
-          test "${{ steps.selftest_with_arg.outputs.myOutput }}" == "Hello test"
+          test "${{ steps.selftest.outputs.prLabels }}" == "123456"

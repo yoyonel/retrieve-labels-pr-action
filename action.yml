@@ -2,11 +2,14 @@ name: "Python Container Action Template"
 description: "Get started with Python Container actions"
 author: "Jacob Tomlinson"
 inputs:
-  myInput:
-    description: "Input to use"
-    default: "world"
+  github_token:
+    description: ""
+    required: true
+  pr_number:
+    description: ""
+    required: false
 outputs:
-  myOutput:
+  prLabels:
     description: "Output from the action"
 runs:
   using: "docker"
