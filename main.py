@@ -49,19 +49,19 @@ def main():
         try:
             pr_number=int(pr_number)
         except ValueError:
-            print(f'A valid pull request number input must be defined when triggering on ' \
+            print(f'::error A valid pull request number input must be defined when triggering on ' \
                 f'"pull_request_target". The pull request number passed was "{pr_number_str}".')
-            raise
+            sys.exit(1)
     else:
         # Try to extract the pull request number from the GitHub reference.
         try:
             pr_number=int(re.search('refs/pull/([0-9]+)/merge', github_ref).group(1))
         except AttributeError:
-            print(f'The pull request number could not be extracted from the GITHUB_REF = ' \
+            print(f'::error The pull request number could not be extracted from the GITHUB_REF = ' \
                 f'"{github_ref}"')
-            raise
+            sys.exit(1)
 
-    print(f'Pull request number: {pr_number}')
+    print(f'::info Pull request number: {pr_number}')
 
     # Create a pull request object
     pr = repo.get_pull(pr_number)
